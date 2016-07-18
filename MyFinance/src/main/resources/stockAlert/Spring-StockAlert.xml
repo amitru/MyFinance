@@ -1,0 +1,38 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<!-- STOCK BEAN Definition -->
+	<bean id="watchListStock" class="com.amitru.mystockalert.beans.WatchListStock" >
+	</bean>
+	
+	<!-- Connecting with MYSQL Server -->
+	<bean id="StockAlertDAO" class="com.amitru.mystockalert.dao.StockAlertDAO" init-method="initIt">
+		<property name="dataSource" ref="dataSource" />
+		<property name="watchListStockList">
+			<list></list>
+		</property>
+	</bean>
+	
+	<!-- Connecting with YAHOO FINANCE Service -->
+	<bean id="StockAlertService" class="com.amitru.mystockalert.service.MyStockServiceImpl">
+		<property name="watchListStockList">
+			<list></list>
+		</property>
+		<property name="stockListForEmailTrigger">
+			<list></list>
+		</property>
+		<!-- property name="url" value="http://finance.yahoo.com/webservice/v1/symbols/PLACEHOLDER/quote?format=json" /-->
+		<property name="url" value="http://finance.google.com/finance/info?client=ig&amp;q=PLACEHOLDER" />
+	</bean>
+	
+	<!-- Settings for Sending EMAILS -->
+	<!-- Specify Email and Password of your GMAIL Account, Make sure to set below security profile -->
+	<!-- OPEN https://www.google.com/settings/security/lesssecureapps and set access for less secure apps set to YES -->
+	<bean id="emailService" class="com.amitru.mystockalert.util.MailUtil">
+		<property name="userName" value="jaisriganeshmaharajki@gmail.com" />
+		<property name="password" value="jaishanidev" />
+	</bean>
+	
+</beans>
