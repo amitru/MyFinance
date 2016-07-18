@@ -25,11 +25,11 @@ public final class GoogleAuthHelper {
 	/**
 	 * Please provide a value for the CLIENT_ID constant before proceeding, set this up at https://code.google.com/apis/console/
 	 */
-	private static final String CLIENT_ID = "351367617979-fdfjmqghiv5e76ia1o73pfsb1ghc6l25.apps.googleusercontent.com";
+	private static final String CLIENT_ID = "XXXX";
 	/**
 	 * Please provide a value for the CLIENT_SECRET constant before proceeding, set this up at https://code.google.com/apis/console/
 	 */
-	private static final String CLIENT_SECRET = "ltASptiQwoC2WtMYK0Kzka4L";
+	private static final String CLIENT_SECRET = "XXX";
 
 	/**
 	 * Callback URI that google will redirect to after successful authentication
