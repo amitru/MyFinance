@@ -1,0 +1,38 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<bean id="stockAlertTask" class="com.amitru.mystockalert.job.StockAlertTask" />
+
+	<!-- Spring Quartz -->
+	<bean name="runMeJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="com.amitru.mystockalert.job.StockAlertJob" />
+		<property name="jobDataAsMap">
+		  <map>
+			<entry key="stockAlertTask" value-ref="stockAlertTask" />
+		  </map>
+		</property>
+	</bean>
+
+	<!-- Cron Trigger, run every 1 minutes -->
+	<bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="runMeJob" />
+		<property name="cronExpression" value="0 0/1 * * * ?" />
+	</bean>
+
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="jobDetails">
+			<list>
+				<ref bean="runMeJob" />
+			</list>
+		</property>
+
+		<property name="triggers">
+			<list>
+				<ref bean="cronTrigger" />
+			</list>
+		</property>
+	</bean>
+
+</beans>
